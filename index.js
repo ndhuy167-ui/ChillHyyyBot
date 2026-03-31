@@ -2,20 +2,22 @@ import './src/app.js';
 
 const { joinVoiceChannel } = require('@discordjs/voice');
 
-client.once('ready', () => {
-    console.log('Bot is ready');
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
 
-    const channel = client.channels.cache.get("1481730637575487662");
+    if (message.content === '!join') {
+        if (!message.member.voice.channel) {
+            return message.reply('Bạn chưa vào voice!');
+        }
 
-    if (channel) {
+        const channel = message.member.voice.channel;
+
         joinVoiceChannel({
             channelId: channel.id,
-            guildId: channel.guild.id,
-            adapterCreator: channel.guild.voiceAdapterCreator,
+            guildId: message.guild.id,
+            adapterCreator: message.guild.voiceAdapterCreator,
         });
 
-        console.log("Đã vào voice 🔥");
-    } else {
-        console.log("Sai ID room rồi");
+        message.reply('Đã vào room 🔥');
     }
 });
