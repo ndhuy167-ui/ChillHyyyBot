@@ -2,10 +2,8 @@ import './src/app.js';
 
 const { joinVoiceChannel } = require('@discordjs/voice');
 
-client.once('ready', async () => {
-    console.log(`Bot online: ${client.user.tag}`);
-
-    const channel = client.channels.cache.get("ID_ROOM_VOICE");
+client.once('ready', () => {
+    const channel = client.channels.cache.get("1481730637575487662");
 
     if (channel) {
         joinVoiceChannel({
